@@ -1,0 +1,74 @@
+使用nodejs来创建一个http服务，要由几个部分组成
+	1 引入http模块，require
+	2 创建服务器
+	3 处理相应与请求(text/plain text/html)
+---------------------------------------------------------------
+nodejs它的异步编程直接体现是 “异步回调”
+readFileSync():同步读取
+readFile():异步读取
+基于浏览器的回调
+ function c(a,b,callback){
+ 	callback(a,b)
+ }
+ function num(a,b){
+ 	console.log(a + b)
+ }
+ c(1,2,num)
+
+也可以这样写
+c(1,2,function (a,b){
+	console.log(a+b)
+})
+--------------------------------------------------------------
+nodejs的事件是使用events模块
+var xx = require("events")
+通过实例话他里面的类
+var event = new xx.EventEmitter()
+通过这个实例，来绑定和监听事件
+绑定事件:event.on()
+监听事件的触发:event.emit()
+----------------------------------------------------------------
+Buffer:由于Javascript不支持二进制的格式，所有node就专门出现了Buffer,用来存放二进制文件的缓存区
+一个Buffer类相当于一个整数的数组
+write()
+
+toString()
+
+将Buffer转换为json对象
+buf.toJSON()  返回值是一个 json对象
+Buffer.from()  返回值是一个被array之后的值初始化之后的新的Buffer实例(array之中的元素只能是数字，否则会被0覆盖)
+-----------------------------------------------------------------
+nodejs中的Stream(流):是一个抽象的接口
+主要的四种Stream(流)
+-Readable -可读操作
+-Writeable -可写操作
+-Duple -可读可写操作
+-Transform -操作被写入的数据，然后读出结果
+所有的Stream对象，都是EventEmitter的实例
+常用的事件：
+	-data 当有数据可读取时触发
+	-end 没有更多的数据可读取时触发
+	-error 在接收和写入过程中，发生错误时触发
+	-finish 所有的数据已经被写入之后触发
+读取流 createReadStream()
+写入流 createWriteStream()
+管道流 pipe()
+链式流
+--------------------------------------------------------------------
+ 模块化开发
+ function a(){
+	 
+ }
+ exports.a = a;(只导出a这个模块)
+ exports.a = function (){}
+ moudle.exports = a(全部导出模块)
+ -------------------------------------------------------------------
+ get/post请求
+ get:获得？后面的内容
+ util:是Nodejs得工具，有很多的方法
+ util.inspect:把对象转成字符串
+ url:nodejs的模块
+ url.parse:解析url请求之内的东西
+ post请求
+ querystring.parse()用于将一个字符串转为对象
+ 
